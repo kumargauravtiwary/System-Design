@@ -1,0 +1,24 @@
+Phase 1: Fundamentals (Must Do First)
+Learn these concepts deeply:
+🔹 Core Concepts
+
+Scalability (vertical vs horizontal)
+Load balancing
+Caching (Redis, CDN)
+Database types:
+
+SQL (MySQL, PostgreSQL)
+NoSQL (MongoDB, Cassandra)
+
+
+CAP Theorem (Consistency vs Availability)
+Latency vs Throughput
+
+🔹 Must Know Components
+
+API Gateway
+Microservices vs monolith
+Message queues (Kafka, RabbitMQ)
+CDN
+Rate limiting
+Authentication (JWT, OAuth)
