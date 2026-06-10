@@ -22,3 +22,67 @@ Message queues (Kafka, RabbitMQ)
 CDN
 Rate limiting
 Authentication (JWT, OAuth)
+======================================
+🟢 Beginner-Level Questions (Must Start Here)
+These test basic architecture + core concepts
+
+Design a URL Shortener (like bit.ly)
+Design a Rate Limiter
+Design a Pastebin
+Design a File Storage System (like Google Drive basic)
+Design a Parking Lot System
+Design a Key-Value Store (like Redis basic)
+
+👉 Focus: APIs, DB schema, caching, scaling basics
+
+🟡 Intermediate-Level Questions
+These are most common in interviews
+Social + Communication Systems
+
+Design WhatsApp / Chat System
+Design a Notification System
+Design Instagram / Facebook Feed
+Design Twitter Timeline
+
+Core Platform Systems
+
+Design a Web Crawler
+Design Search Autocomplete (Google)
+Design a Distributed Cache
+Design an API Rate Limiter for large-scale apps
+
+Media & Storage
+
+Design Dropbox
+Design YouTube basic (video upload + streaming)
+
+👉 Focus: real-time systems, queues, caching, scalability
+
+🔴 Advanced-Level Questions (Top Companies)
+These test deep system thinking + trade-offs
+Large-Scale Systems
+
+Design Netflix / Video Streaming Platform
+Design Uber / Ola (ride matching system)
+Design Google Maps (routing system)
+Design Amazon / E-commerce platform
+Design LinkedIn
+
+Distributed Systems
+
+Design a Distributed Logging System
+Design Google Docs (real-time collaboration)
+Design a Distributed Job Scheduler
+Design a Scalable Calendar System
+
+👉 Focus: partitioning, consistency, fault tolerance
+
+🎯 High-Frequency Interview Questions (Very Important)
+If you're short on time, prioritize these:
+✅ URL Shortener
+✅ Chat System
+✅ News Feed
+✅ Rate Limiter
+✅ Notification System
+✅ Uber / Ride Matching
+✅ YouTube / Streaming
