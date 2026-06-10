@@ -1,0 +1,193 @@
+🎯 1. Clarify Requirements
+✅ Functional Requirements
+
+Shorten long URL → short URL
+Redirect short URL → original URL
+Custom alias (optional)
+URL expiration (optional)
+
+✅ Non-Functional Requirements
+
+High availability
+Low latency (fast redirects)
+Massive scale (millions of URLs/day)
+Fault tolerance
+
+
+📊 2. Scale Estimation (Important!)
+Assume:
+
+100M URLs/day
+Read-heavy system (1000:1 read/write ratio)
+
+Storage:
+
+100M/day → ~36.5B/year
+Each URL ≈ 200 bytes
+👉 ~7TB/year
+
+
+🏗️ 3. High-Level Design
+Client → Load Balancer → API Servers → DB
+                         ↓
+                       Cache (Redis)
+
+
+🔁 4. Core Flow
+✅ 1. URL Shortening
+
+User sends long URL
+System generates short ID
+Store mapping:
+short_id → long_url
+
+
+Return:
+https://bit.ly/abc123
+
+
+
+
+✅ 2. Redirection
+
+User clicks short URL
+System looks up short_id
+Fetch long URL from:
+
+Cache (first)
+DB (fallback)
+
+
+Redirect (HTTP 301/302)
+
+
+🧠 5. Key Design Problem: Short Code Generation
+This is the most important part.
+
+✅ Approach 1: Auto Increment ID + Base62
+Flow:
+
+ID = 1000001
+Convert to Base62 → abc123
+
+Base62 chars:
+[a–z, A–Z, 0–9] → 62 characters
+
+Pros:
+✔ Simple
+✔ Predictable
+Cons:
+❌ Easy to guess (security risk)
+
+✅ Approach 2: Hash (MD5/SHA)
+
+Generate hash of URL
+Take first 6–8 chars
+
+Pros:
+✔ Unique
+✔ No sequence exposure
+Cons:
+❌ Collisions possible → must handle
+
+✅ Approach 3: Random String
+
+Generate random 6-character string
+
+Pros:
+✔ Highly secure
+✔ Hard to predict
+Cons:
+❌ Need collision handling
+
+✅ Best Practice:
+Use Random/Base62 + collision check
+
+⚡ 6. Database Design
+Table:
+URL_Table
+---------
+short_id (PK)
+long_url
+created_at
+expiry_time
+
+
+✅ SQL vs NoSQL?
+
+
+✅ At scale → use NoSQL (Cassandra / DynamoDB)
+
+⚡ 7. Caching (Critical for Performance)
+Use Redis
+Flow:
+
+Check cache first
+If miss → DB
+Store in cache
+
+👉 Most requests = reads → huge speed boost
+
+🌍 8. Scaling the System
+✅ Horizontal Scaling
+
+Multiple API servers
+Load balancer distributes traffic
+
+
+✅ Database Scaling
+
+Sharding
+
+Split data by short_id
+
+
+Replication
+
+Master → writes
+Replicas → reads
+
+
+
+
+🚧 9. Bottlenecks & Solutions
+❌ Problem: DB overload
+✔ Solution: Cache + Read replicas
+
+❌ Problem: Hot URLs (viral links)
+✔ Solution:
+
+Cache heavily
+CDN
+
+
+❌ Problem: Collisions
+✔ Solution:
+
+Retry with new ID
+
+
+🔐 10. Security Considerations
+
+Rate limiting (prevent abuse)
+Spam detection
+URL validation
+HTTPS support
+
+
+🎯 11. API Design
+Create URL
+POST /shorten
+{
+  "long_url": "https://example.com"
+}
+
+Response
+{
+  "short_url": "https://bit.ly/abc123"
+}
+
+
+Redirect
+GET /abc123
+→ Redirect to original URL
